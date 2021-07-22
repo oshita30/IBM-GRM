@@ -39,7 +39,7 @@ if __name__ == '__main__':
     k = params.topK
     dist_metric = params.distance_metric
     
-    final_list_cosine_sim=[['test_diff'],['given_LM'],['pred_diff'],['pred_LM'],['top1_diff'],['top1_LM'],['top2_diff'],['top2_LM']
+    final_list=[['test_diff'],['given_LM'],['pred_diff'],['pred_LM'],['top1_diff'],['top1_LM'],['top2_diff'],['top2_LM']
      ,['top3_diff'],['top3_LM'],['top4_diff'],['top4_LM'],['top5_diff'],['top5_LM'],['top6_diff'],['top6_LM']
      ,['top7_diff'],['top7_LM'],['top8_diff'],['top8_LM'],['top9_diff'],['top9_LM'],['top10_diff'],['top10_LM']]
     
@@ -48,8 +48,8 @@ if __name__ == '__main__':
         while t <= k:
             s = 'top'+str(t)+'_diff'
             s1 = 'top'+str(t)+'_LM'
-            final_list_bleu.append([s])
-            final_list_bleu.append([s1])
+            final_list.append([s])
+            final_list.append([s1])
             t=t+1
     
     for i, (_) in enumerate(tqdm([i for i in range(test_ftr.shape[0])])):
@@ -70,16 +70,16 @@ if __name__ == '__main__':
         predlm = train_msg[bestK].lower()
         givenlm = test_msg[i].lower()
         prediff = train_diff[bestK]
-        final_list_cosine_sim[0].append(test_diff[i].replace('<nl>','\n'))
-        final_list_cosine_sim[1].append(givenlm)
-        final_list_cosine_sim[2].append(prediff.replace('<nl>','\n'))
-        final_list_cosine_sim[3].append(predlm)
+        final_list[0].append(test_diff[i].replace('<nl>','\n'))
+        final_list[1].append(givenlm)
+        final_list[2].append(prediff.replace('<nl>','\n'))
+        final_list[3].append(predlm)
         x = 4
         for j in topK_index:
-            final_list_cosine_sim[x].append(train_diff[j].replace('<nl>','\n'))
-            final_list_cosine_sim[x+1].append(train_msg[j])
+            final_list[x].append(train_diff[j].replace('<nl>','\n'))
+            final_list[x+1].append(train_msg[j])
             x=x+2
     name_file = params.name_of_csvfile + '.csv'   
     with open(name_file, 'w', newline='') as f:
         writer = csv.writer(f)
-        writer.writerows(final_list_cosine_sim)
+        writer.writerows(final_list)
