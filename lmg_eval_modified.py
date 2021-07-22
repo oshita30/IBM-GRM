@@ -45,7 +45,7 @@ def clean_each_line(line):
     line = ' '.join(line).strip()
     return line
 
-def load_kNN_model(org_diff_code, tf_diff_code, ref_msg, topK=None):
+def load_kNN_model(org_diff_code, tf_diff_code, ref_msg, topK=None,dist_metric=cosine_similarity):
     org_diff_train, org_diff_test = org_diff_code
     tf_diff_train, tf_diff_test = tf_diff_code
     ref_train, ref_test = ref_msg
@@ -56,7 +56,7 @@ def load_kNN_model(org_diff_code, tf_diff_code, ref_msg, topK=None):
     for i, (_) in enumerate(tqdm(run_tqdm)):   
         element = tf_diff_test[i, :]
         element = np.reshape(element, (1, element.shape[0]))
-        cosine_sim = cosine_similarity(X=tf_diff_train, Y=element)
+        cosine_sim = dist_metric(X=tf_diff_train, Y=element)
 
         if topK == None:
             bestK = finding_bestK(diff_trains=org_diff_train, diff_test=org_diff_test[i], topK_index=topK)
@@ -78,6 +78,7 @@ def read_args():
 
     parser.add_argument('-train_cc2ftr_data', type=str, default='./data/lmg/train_cc2ftr.pkl', help='the directory of our training data')
     parser.add_argument('-test_cc2ftr_data', type=str, default='./data/lmg/test_cc2ftr.pkl', help='the directory of our training data')
+    parser.add_argument('-topK', type=int, default=None , help='the value of k')
     return parser
 
 if __name__ == '__main__':
@@ -94,6 +95,7 @@ if __name__ == '__main__':
     org_diff_data = (train_diff, test_diff)
     tf_diff_data = (train_ftr, test_ftr)
     ref_data = (train_msg, test_msg)
+    topK = params.topK
 
-    blue_scores = load_kNN_model(org_diff_code=org_diff_data, tf_diff_code=tf_diff_data, ref_msg=ref_data)
+    blue_scores = load_kNN_model(org_diff_code=org_diff_data, tf_diff_code=tf_diff_data, ref_msg=ref_data, topK=topK)
     print('Average of blue scores:', sum(blue_scores) / len(blue_scores) * 100)
