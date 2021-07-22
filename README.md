@@ -1,1 +1,1 @@
-# Log-Message-Genreation
+# Log-Message-Generation
