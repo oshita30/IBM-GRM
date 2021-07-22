@@ -6,7 +6,7 @@ from nltk.translate.bleu_score import SmoothingFunction
 from nltk.translate.bleu_score import sentence_bleu
 import re
 from tqdm import tqdm
-from lmg_eval import finding_bestK, finding_topK, clean_msg
+from lmg_eval_modified import finding_bestK, finding_topK, clean_msg
 import csv
 from sys import exit
 
