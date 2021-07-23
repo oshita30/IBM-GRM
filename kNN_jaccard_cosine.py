@@ -104,7 +104,7 @@ if __name__ == '__main__':
      ,['top7_diff'],['top7_LM'],['top8_diff'],['top8_LM'],['top9_diff'],['top9_LM'],['top10_diff'],['top10_LM']]
     
     
-    if k>10:
+    if k_cos>10:
         t = 11
         while t <= k:
             s = 'top'+str(t)+'_diff'
