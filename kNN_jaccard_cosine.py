@@ -10,6 +10,14 @@ from tqdm import tqdm
 
 from sys import exit
 # this file calculates the top k training diffs based on bleu score for every test diff and stores in a csv file.
+def clean_msg(messages):
+    return [clean_each_line(line=msg) for msg in messages]
+
+def clean_each_line(line):
+    line = line.strip()
+    line = line.split()
+    line = ' '.join(line).strip()
+    return line
 
 def finding_topK_jaccard(diff_trains, diff_test, topK=1):
     diff_code_train = [d.lower().split() for d in diff_trains] #list of lists of tokenized code changes
