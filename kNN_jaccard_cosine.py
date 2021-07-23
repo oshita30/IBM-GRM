@@ -112,19 +112,15 @@ if __name__ == '__main__':
     train_ftr = pickle.load(open(params.train_cc2ftr_data, "rb"))   
     test_ftr = pickle.load(open(params.test_cc2ftr_data, "rb"))
     
-    final_list_bleu=[['test_diff'],['given_LM'],['pred_diff'],['pred_LM'],['bleu_score_pred_given'],['top1_diff'],['top1_LM'],['top2_diff'],['top2_LM']
-     ,['top3_diff'],['top3_LM'],['top4_diff'],['top4_LM'],['top5_diff'],['top5_LM'],['top6_diff'],['top6_LM']
-     ,['top7_diff'],['top7_LM'],['top8_diff'],['top8_LM'],['top9_diff'],['top9_LM'],['top10_diff'],['top10_LM']]
+    final_list_bleu=[['test_diff'],['given_LM'],['pred_diff'],['pred_LM'],['bleu_score_pred_given']]
     
-    
-    if k_cos>10:
-        t = 11
-        while t <= k_cos:
-            s = 'top'+str(t)+'_diff'
-            s1 = 'top'+str(t)+'_LM'
-            final_list_bleu.append([s])
-            final_list_bleu.append([s1])
-            t=t+1
+    t=1
+    while t <= k_cos:
+        s = 'top'+str(t)+'_diff'
+        s1 = 'top'+str(t)+'_LM'
+        final_list_bleu.append([s])
+        final_list_bleu.append([s1])
+        t=t+1
         
     bleu_scores=[]
     for i, (_) in enumerate(tqdm([i for i in range(2216)])):
