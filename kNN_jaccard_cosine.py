@@ -152,7 +152,7 @@ if __name__ == '__main__':
         blue_score = sentence_bleu(references=[givenlm.split()], hypothesis=predlm.split(),smoothing_function=chencherry.method5)
         final_list_bleu[4].append(blue_score)
         bleu_scores.append(blue_score)
-        x = 4
+        x = 5
         
         for j in topK_index_cos:
             final_list_bleu[x].append(train_diff_new[j])
