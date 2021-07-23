@@ -51,7 +51,7 @@ def finding_topK_jaccard(diff_trains, diff_test, topK=1):
             temp.add(w)
         diff_train.append(temp)
     
-    scores = [(d.intersection(diff_test))/(d.union(diff_test)) for d in diff_train]
+    scores = [len(d.intersection(diff_test))/len(d.union(diff_test)) for d in diff_train]
     
     scores = list(scores)
     topK_index_jaccard = list()
