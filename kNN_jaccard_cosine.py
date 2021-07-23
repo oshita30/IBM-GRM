@@ -106,7 +106,7 @@ if __name__ == '__main__':
     
     if k_cos>10:
         t = 11
-        while t <= k:
+        while t <= k_cos:
             s = 'top'+str(t)+'_diff'
             s1 = 'top'+str(t)+'_LM'
             final_list_bleu.append([s])
