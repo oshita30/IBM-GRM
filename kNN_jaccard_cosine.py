@@ -17,7 +17,7 @@ def finding_topK_jaccard(diff_trains, diff_test, topK=1):
     
     for i in range(len(diff_code_train)):
         j = 0
-        while j<len(diff_code_train[i]:
+        while j<len(diff_code_train[i]):
             if diff_code_train[i][j].isalnum():
                 j=j+1
                 continue
