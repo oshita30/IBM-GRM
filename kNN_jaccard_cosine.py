@@ -6,10 +6,11 @@ from nltk.translate.bleu_score import SmoothingFunction
 from nltk.translate.bleu_score import sentence_bleu
 import re
 from tqdm import tqdm
-
-
 from sys import exit
 # this file calculates the top k training diffs based on bleu score for every test diff and stores in a csv file.
+def get_data_index(data, indexes):
+    return [data[i] for i in indexes]
+
 def clean_msg(messages):
     return [clean_each_line(line=msg) for msg in messages]
 
