@@ -1,4 +1,5 @@
 import argparse
+import csv
 import pickle
 import numpy as np 
 from sklearn.metrics.pairwise import cosine_similarity
@@ -162,11 +163,11 @@ if __name__ == '__main__':
             final_list_bleu[x+1].append(train_msg_new[j])
             x=x+2
         
-        
+    print('Average of blue scores:', sum(bleu_scores) / len(bleu_scores) * 100)
+    print('size of test data = ', len(bleu_scores))    
     with open('nearest_diff_topk_100jac_20cos.csv', 'w', newline='') as f:
         writer = csv.writer(f)
         writer.writerows(final_list_bleu) 
                     
-    print('Average of blue scores:', sum(bleu_scores) / len(bleu_scores) * 100)
-    print('size of test data = ', len(bleu_scores))
+    
                     
