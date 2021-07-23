@@ -151,6 +151,7 @@ if __name__ == '__main__':
         final_list_bleu[1].append(givenlm)
         final_list_bleu[2].append(prediff.replace('<nl>','\n'))
         final_list_bleu[3].append(predlm)
+        chencherry = SmoothingFunction()
         blue_score = sentence_bleu(references=[givenlm.split()], hypothesis=predlm.split(),smoothing_function=chencherry.method5)
         final_list_bleu[4].append(blue_score)
         bleu_scores.append(blue_score)
