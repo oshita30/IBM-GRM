@@ -11,12 +11,28 @@ from lmg_eval import finding_bestK, finding_topK, clean_msg
 from sys import exit
 # this file calculates the top k training diffs based on bleu score for every test diff and stores in a csv file.
 
-def finding_topK_bleu(diff_trains, diff_test, topK=1):
+def finding_topK_jaccard(diff_trains, diff_test, topK=1):
     diff_code_train = [d.lower().split() for d in diff_trains] #list of lists of tokenized code changes
     diff_code_test = diff_test.lower().split() #single tokenized test code change in question
-    chencherry = SmoothingFunction()
-    scores = [sentence_bleu(references=[diff_code_test], hypothesis=d, smoothing_function=chencherry.method1) for d in
-            diff_code_train]
+    
+    for i in range(len(diff_code_train)):
+        j = 0
+        while j<len(diff_code_train[i]:
+            if diff_code_train[i][j].isalnum():
+                j=j+1
+                continue
+            else:
+                del diff_code_train[i][j]
+    
+    i=0
+    while i<len(diff_code_test):
+        if diff_code_test[i].isalnum():
+            i=i+1
+            continue
+        else:
+            del diff_code_test[i]
+    
+    scores = [(set(d).intersection(set(diff_code_test)))/(set(d).union(set(diff_code_test))) for d in diff_code_train]
     
     scores = list(scores)
     topK_index_bleu = list()
@@ -26,7 +42,7 @@ def finding_topK_bleu(diff_trains, diff_test, topK=1):
         topK_index_bleu.append(index)
         del scores[index]
     
-    return topK_index_bleu
+    return topK_index_jaccard
 
 
 def read_args():
