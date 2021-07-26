@@ -21,20 +21,33 @@ def clean_each_line(line):
     line = ' '.join(line).strip()
     return line
 
-def editDistance(str1, str2, m, n):
-    if m == 0:
-        return n
+def editDistance(str1, str2):
+    len1 = len(str1)
+    len2 = len(str2)
 
-    if n == 0:
-        return m
+    DP = [[0 for i in range(len1 + 1)]
+             for j in range(2)];
+    
+    for i in range(0, len1 + 1):
+        DP[0][i] = i
 
-    if str1[m-1] == str2[n-1]:
-        return editDistance(str1, str2, m-1, n-1)
+    for i in range(1, len2 + 1):
+        for j in range(0, len1 + 1):
+            if (j == 0):
+                DP[i % 2][j] = i
 
-    return 1 + min(editDistance(str1, str2, m, n-1),editDistance(str1, str2, m-1, n),editDistance(str1, str2, m-1, n-1))
+            elif(str1[j - 1] == str2[i-1]):
+                DP[i % 2][j] = DP[(i - 1) % 2][j - 1]
+
+            else:
+                DP[i % 2][j] = (1 + min(DP[(i - 1) % 2][j],
+                                    min(DP[i % 2][j - 1],
+                                  DP[(i - 1) % 2][j - 1])))
+
+    return DP[len2 % 2][len1]
 
 def finding_topK_editDist(diff_trains, diff_test, topK=1):
-    scores = [editDistance(d, diff_test, len(d), len(diff_test)) for d in diff_trains]
+    scores = [editDistance(d, diff_test) for d in diff_trains]
     
     scores = list(scores)
     topK_index = list()
@@ -165,16 +178,8 @@ if __name__ == '__main__':
         train_diff_new = [train_diff[x] for x in topK_index_cos]
         train_msg_new = [train_msg[w] for w in topK_index_cos]
         train_ftr_new = train_ftr[topK_index_cos]
-        topK_index_editD = finding_topK_editDist(diff_trains=train_diff_new, diff_test=test_diff[i], topK=1)
-        
-        
-        # finding topK_jac code changes based on jaccard similarity
-        # now my training set is reduced to topK_jac code changes
-        
-        
-        
-                    
-        bestK = topK_index_jaccard[0]
+        topK_index_editD = finding_topK_editDist(diff_trains=train_diff_new, diff_test=test_diff[i], topK=1)           
+        bestK = topK_index_editD[0]
         # bestK is the index of predicted log message
         predlm = train_msg_new[bestK].lower()
         givenlm = test_msg[i].lower()
