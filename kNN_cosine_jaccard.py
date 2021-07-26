@@ -157,8 +157,8 @@ if __name__ == '__main__':
         x = 5
         
         for j in topK_index_cos:
-            final_list_bleu[x].append(train_diff_new[j])
-            final_list_bleu[x+1].append(train_msg_new[j])
+            final_list_bleu[x].append(train_diff[j])
+            final_list_bleu[x+1].append(train_msg[j])
             x=x+2
         
     print('Average of blue scores for k=',k_cos,' :', sum(bleu_scores) / len(bleu_scores) * 100)
