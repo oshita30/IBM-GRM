@@ -22,7 +22,6 @@ def read_args():
     parser.add_argument('-test_cc2ftr_data', type=str, default='./data/lmg/test_cc2ftr.pkl', help='the directory of our training data')
     parser.add_argument('-topK', type=int, default=10, help='the value of K')
     parser.add_argument('-name_of_csvfile', type=str, required=True, help='name of file in which the output is to be stored')
-    parser.add_argument('-distance_metric', type=str, default='cosine', help='the distance metric (cosine, euclidean, manhattan)')
     return parser
 
 
@@ -37,7 +36,7 @@ if __name__ == '__main__':
     train_ftr = pickle.load(open(params.train_cc2ftr_data, "rb"))   
     test_ftr = pickle.load(open(params.test_cc2ftr_data, "rb"))
     k = params.topK
-    dist_metric = params.distance_metric
+    
     
     final_list=[['test_diff'],['given_LM'],['pred_diff'],['pred_LM'],['top1_diff'],['top1_LM'],['top2_diff'],['top2_LM']
      ,['top3_diff'],['top3_LM'],['top4_diff'],['top4_LM'],['top5_diff'],['top5_LM'],['top6_diff'],['top6_LM']
@@ -56,13 +55,7 @@ if __name__ == '__main__':
         temp=[]
         element = test_ftr[i, :]
         element = np.reshape(element, (1, element.shape[0]))
-        if dist_metric=='cosine':
-            dist_metric = cosine_similarity(X=train_ftr, Y=element)
-        elif dist_metric=='euclidean':
-            dist_metric = 1 - euclidean_distances(X=train_ftr, Y=element)
-        elif dist_metric=='manhattan':
-            dist_metric = 1 - manhattan_distances(X=train_ftr, Y=element)
-        
+        dist_metric = cosine_similarity(X=train_ftr, Y=element)
         topK_index = finding_topK(dist_metric, topK=k)
         # taking top k diffs based on cosine similarity
         bestK = finding_bestK(diff_trains=train_diff, diff_test=test_diff[i], topK_index=topK_index)
