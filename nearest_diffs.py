@@ -70,13 +70,13 @@ if __name__ == '__main__':
         predlm = train_msg[bestK].lower()
         givenlm = test_msg[i].lower()
         prediff = train_diff[bestK]
-        final_list[0].append(test_diff[i].replace('<nl>','\n'))
+        final_list[0].append(test_diff[i])
         final_list[1].append(givenlm)
-        final_list[2].append(prediff.replace('<nl>','\n'))
+        final_list[2].append(prediff)
         final_list[3].append(predlm)
         x = 4
         for j in topK_index:
-            final_list[x].append(train_diff[j].replace('<nl>','\n'))
+            final_list[x].append(train_diff[j])
             final_list[x+1].append(train_msg[j])
             x=x+2
     name_file = params.name_of_csvfile + '.csv'   
