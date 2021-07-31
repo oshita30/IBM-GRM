@@ -14,6 +14,7 @@ from nltk.translate.bleu_score import sentence_bleu
 import re
 from tqdm import tqdm
 from sys import exit
+import gc
 # this file calculates the top k training diffs based on bleu score for every test diff and stores in a csv file.
 def get_data_index(data, indexes):
     return [data[i] for i in indexes]
@@ -96,6 +97,7 @@ if __name__ == '__main__':
         blue_score = sentence_bleu(references=[givenlm.split()], hypothesis=predlm.split(),smoothing_function=chencherry.method5)
         bleu_scores.append(blue_score)
         list1.append([test_diff[i],givenlm,predlm,blue_score])
+        gc.collect()
     print('Average of blue scores for k=',k_cos,' :', sum(bleu_scores) / len(bleu_scores) * 100)
     print('size of test data = ', len(bleu_scores))    
     with open('kNN_cos_BERT.csv', 'w', newline='') as f:
