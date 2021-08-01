@@ -90,7 +90,7 @@ if __name__ == '__main__':
           
         train_ftr_new = train_ftr[topK_index_cos]
         model=Summarizer()
-        predlm = model(sum_text,num_sentences=1).lower()
+        predlm = model(sum_text,ratio=(1/len(sum_text))).lower()
         predlm = predlm.replace(',','.')
         givenlm = test_msg[i].lower()
         chencherry = SmoothingFunction()
