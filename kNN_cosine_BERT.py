@@ -75,7 +75,7 @@ if __name__ == '__main__':
     
     list1=[['test_diff','given msg','pred msg','bleu']]        
     bleu_scores=[]
-    for i, (_) in enumerate(tqdm([i for i in range(2216)])):
+    for i, (_) in enumerate(tqdm([i for i in range(50)])):
         # now i have to find topK_cos from train_diff_new
         element = test_ftr[i, :]
         element = np.reshape(element, (1, element.shape[0]))
@@ -98,8 +98,9 @@ if __name__ == '__main__':
         bleu_scores.append(blue_score)
         list1.append([test_diff[i],givenlm,predlm,blue_score])
         gc.collect()
+        with open('kNN_cos_BERT.csv', 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerows(list1)
     print('Average of blue scores for k=',k_cos,' :', sum(bleu_scores) / len(bleu_scores) * 100)
     print('size of test data = ', len(bleu_scores))    
-    with open('kNN_cos_BERT.csv', 'w', newline='') as f:
-      writer = csv.writer(f)
-      writer.writerows(list1)
+
