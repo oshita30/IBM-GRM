@@ -76,7 +76,7 @@ if __name__ == '__main__':
     name = params.csv_name
     list1=[['test_diff','given msg','pred msg','bleu']]        
     bleu_scores=[]
-    for i, (_) in enumerate(tqdm([i for i in range(50)])):
+    for i, (_) in enumerate(tqdm([i for i in range(2216)])):
         # now i have to find topK_cos from train_diff_new
         element = test_ftr[i, :]
         element = np.reshape(element, (1, element.shape[0]))
