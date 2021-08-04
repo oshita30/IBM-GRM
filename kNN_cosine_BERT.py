@@ -99,7 +99,7 @@ if __name__ == '__main__':
         bleu_scores.append(blue_score)
         list1.append([test_diff[i],givenlm,predlm,blue_score])
         gc.collect()
-        with open('name', 'w', newline='') as f:
+        with open(name, 'w', newline='') as f:
             writer = csv.writer(f)
             writer.writerows(list1)
     print('Average of blue scores for k=',k_cos,' :', sum(bleu_scores) / len(bleu_scores) * 100)
