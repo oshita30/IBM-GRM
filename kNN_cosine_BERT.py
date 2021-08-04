@@ -60,6 +60,7 @@ def read_args():
     parser.add_argument('-topK_cosine', type=int, default=100, help='value of k for cosine similarity')
     parser.add_argument('-train_cc2ftr_data', type=str, default='./data/lmg/train_cc2ftr.pkl', help='the directory of our training data')
     parser.add_argument('-test_cc2ftr_data', type=str, default='./data/lmg/test_cc2ftr.pkl', help='the directory of our training data')
+    parser.add_argument('-csv_name', type=str, default='kNN_cosine_BERT_.csv', help='name of csv file')
     return parser
 
 
@@ -72,7 +73,7 @@ if __name__ == '__main__':
     test_msg, test_diff = data_test[0], data_test[1]
     train_ftr = pickle.load(open(params.train_cc2ftr_data, "rb"))   
     test_ftr = pickle.load(open(params.test_cc2ftr_data, "rb"))
-    
+    name = params.csv_name
     list1=[['test_diff','given msg','pred msg','bleu']]        
     bleu_scores=[]
     for i, (_) in enumerate(tqdm([i for i in range(50)])):
@@ -98,7 +99,7 @@ if __name__ == '__main__':
         bleu_scores.append(blue_score)
         list1.append([test_diff[i],givenlm,predlm,blue_score])
         gc.collect()
-        with open('kNN_cos_BERT.csv', 'w', newline='') as f:
+        with open('name', 'w', newline='') as f:
             writer = csv.writer(f)
             writer.writerows(list1)
     print('Average of blue scores for k=',k_cos,' :', sum(bleu_scores) / len(bleu_scores) * 100)
