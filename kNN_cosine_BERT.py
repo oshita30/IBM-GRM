@@ -14,6 +14,7 @@ from nltk.translate.bleu_score import sentence_bleu
 import re
 from tqdm import tqdm
 from sys import exit
+import gc
 # this file calculates the top k training diffs based on bleu score for every test diff and stores in a csv file.
 def get_data_index(data, indexes):
     return [data[i] for i in indexes]
@@ -75,7 +76,7 @@ if __name__ == '__main__':
     name = params.csv_name
     list1=[['test_diff','given msg','pred msg','bleu']]        
     bleu_scores=[]
-    for i, (_) in enumerate(tqdm([i for i in range(2216)])):
+    for i, (_) in enumerate(tqdm([i for i in range(50)])):
         # now i have to find topK_cos from train_diff_new
         element = test_ftr[i, :]
         element = np.reshape(element, (1, element.shape[0]))
@@ -90,15 +91,17 @@ if __name__ == '__main__':
           
         train_ftr_new = train_ftr[topK_index_cos]
         model=Summarizer()
-        predlm = model(sum_text,ratio=1/k_cos).lower()
+        predlm = model(sum_text,ratio=(1/len(sum_text))).lower()
         predlm = predlm.replace(',','.')
         givenlm = test_msg[i].lower()
         chencherry = SmoothingFunction()
         blue_score = sentence_bleu(references=[givenlm.split()], hypothesis=predlm.split(),smoothing_function=chencherry.method5)
         bleu_scores.append(blue_score)
         list1.append([test_diff[i],givenlm,predlm,blue_score])
+        gc.collect()
+        with open('name', 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerows(list1)
     print('Average of blue scores for k=',k_cos,' :', sum(bleu_scores) / len(bleu_scores) * 100)
     print('size of test data = ', len(bleu_scores))    
-    with open(name, 'w', newline='') as f:
-      writer = csv.writer(f)
-      writer.writerows(list1)
+
