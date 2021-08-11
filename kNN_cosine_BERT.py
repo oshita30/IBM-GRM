@@ -1,7 +1,7 @@
 #requirements:
-#!pip install bert-extractive-summarizer==0.4.2
-#!pip install sentencepiece
-#!pip install transformers==3.3.0
+#!pip install bert-extractive-summarizer==0.8.1
+#!pip install sentencepiece==0.1.95
+#!pip install transformers==4.4.0
 
 from summarizer import Summarizer
 import argparse
