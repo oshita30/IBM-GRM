@@ -86,14 +86,14 @@ if __name__ == '__main__':
         
         sum_text=''
         for x in topK_index_cos:
-          tmp = train_msg[x].replace('.',',')
+          tmp = train_msg[x].replace('.',' ')
           sum_text = sum_text + tmp + '.'
           
         train_ftr_new = train_ftr[topK_index_cos]
         model=Summarizer()
-        predlm = model(sum_text,ratio=(1/len(sum_text))).lower()
-        predlm = predlm.replace(',','.')
+        predlm = model(sum_text,num_sentences=0).lower()
         givenlm = test_msg[i].lower()
+        givenlm = givenlm.replace(',',' ')
         chencherry = SmoothingFunction()
         blue_score = sentence_bleu(references=[givenlm.split()], hypothesis=predlm.split(),smoothing_function=chencherry.method5)
         bleu_scores.append(blue_score)
@@ -102,6 +102,6 @@ if __name__ == '__main__':
         with open(name, 'w', newline='') as f:
             writer = csv.writer(f)
             writer.writerows(list1)
-    print('Average of blue scores for k=',k_cos,' :', sum(bleu_scores) / len(bleu_scores) * 100)
+    print('Average of blue scores for k= ',k_cos,': ', sum(bleu_scores) / len(bleu_scores) * 100)
     print('size of test data = ', len(bleu_scores))    
 
