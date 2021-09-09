@@ -1,3 +1,6 @@
+# this file replaces BLEU with jaccard similarity in the original implementation and stores the results in a csv
+# csv contains test-diff, test-lm, pred-diff, pred-lm, top20 diffs from training set based on cosine similarity
+
 import argparse
 import csv
 import pickle
