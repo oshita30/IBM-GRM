@@ -1,3 +1,4 @@
+# same as kNN_cosine_jaccard, just jaccard replaced by edit_distance
 import argparse
 import csv
 import pickle
@@ -8,7 +9,6 @@ from nltk.translate.bleu_score import sentence_bleu
 import re
 from tqdm import tqdm
 from sys import exit
-# this file calculates the top k training diffs based on bleu score for every test diff and stores in a csv file.
 def get_data_index(data, indexes):
     return [data[i] for i in indexes]
 
