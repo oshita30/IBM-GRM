@@ -1,4 +1,5 @@
-# 
+# this file calculates the topK patches corresponding to each diff in the test file and stores in a csv.
+# predicted patch is also stored in the csv.
 
 import argparse
 import pickle
