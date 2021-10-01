@@ -3,6 +3,7 @@
 #!pip install sentencepiece==0.1.95
 #!pip install transformers==4.4.0
 # this file summarizes the topK messages usind BERT extractive summarization and stores results in a csv file
+
 from summarizer import Summarizer
 import argparse
 import csv
