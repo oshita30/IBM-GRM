@@ -24,7 +24,7 @@ Stores the BLEU score for different values of K in a dictionary and dumps the pk
        $ python topK_dictionary.py -train_data [path of our training data] -test_data [path of our testing data] -train_cc2ftr_data [path of our code changes features extracted from training data] -test_cc2ftr_data [path of our code changes features extracted from testing data] -topK [value of k (int)] -lower_limit [lower value of K] -upper_limit [upper value of K] -step [step size between lower and upper limit]
        
 ## 2. kNN_cosine_BERT.py
-This file summarizes the topK messages usind BERT extractive summarization and stores results in a csv file.
+This file summarizes the topK messages using BERT extractive summarization and stores results in a csv file.
 
        $ python kNN_cosine_BERT.py -train_data [path of our training data] -test_data [path of our testing data] -train_cc2ftr_data [path of our code changes features extracted from training data] -test_cc2ftr_data [path of our code changes features extracted from testing data] -topK_csoine [value of k for cosine similarity(int)] -csv_name [name of file in which the output is to be stored]
 
